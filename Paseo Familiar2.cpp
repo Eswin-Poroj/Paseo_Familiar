@@ -16,8 +16,6 @@ struct Administrador{
 
 //Estructura para almacenar los datos de los clientes
 struct Cliente{
-	string  usuario;
-	string password;
 	string nombre;
 	string apellido;
 	string nit;
@@ -36,44 +34,7 @@ struct Actividad {
     double precio;
 };
 
-//Funcion para registrar nuevos clientes
-void registroCliente(){
-	setlocale(LC_ALL, "");
-	Cliente nuevoCliente;
-	
-	cout<<"Bienvenido!! Comencemos con su registro."<<endl;
-	cout<<"Por favor!! Escriba su nombre"<<endl;
-	cin>>nuevoCliente.nombre;
-	
-	cout<<"Ingrese un apellido"<<endl;
-	cin>>nuevoCliente.apellido;
-	
-	cout<<"Ingrese su número de DPI"<<endl;
-	cin>>nuevoCliente.dpi;
-	
-	cout<<"Ingrese su número de Telefono"<<endl;
-	cin>>nuevoCliente.telefono;
-	
-	cout<<"Ingrese su número de NIT"<<endl;
-	cin>>nuevoCliente.nit;
-	
-	cout<<"Escriba su correo electronico"<<endl;
-	cin>>nuevoCliente.correo;
-	
-	cout<<"Escriba el Departamento donde Reside"<<endl;
-	cin>>nuevoCliente.departamento;
-	
-	cout<<"Escriba su usuario"<<endl;
-	cin>>nuevoCliente.usuario;
-	
-	cout<<"Escriba su contraseña"<<endl;
-	cin>>nuevoCliente.password;
-	
-	clientes.push_back(nuevoCliente); // Añadimos el nuevo cliente al vector
-	
-	cout<<"Felicidades " <<nuevoCliente.nombre<<" "<<nuevoCliente.apellido<< ", completamos su registro."<<endl<<"¡¡Muchas Gracias!!"<<endl;
-}
-
+//Inicio de Sección de Administrador
 bool inicioSecionAdmin(){
 	setlocale(LC_ALL, "");
 	string usuarioCliente, password;
@@ -81,14 +42,13 @@ bool inicioSecionAdmin(){
 	    {"ADMINISTRADOR", "4899"}
     };
 
-	cout<<"¡Bienvenido a PASEO FAMILIAR!"<<endl<<"Ingrese su nombre de Usuario"<<endl;
+	cout<<"\t\t\t\t¡Bienvenido a PASEO FAMILIAR!"<<endl<<"\nIngrese su Usuario"<<endl;
 	cin>>usuarioCliente;
-	cout<<"Ingrese su contraseña"<<endl;
+	cout<<"\nIngrese su contraseña"<<endl;
 	cin>>password;
     
     for(const Administrador & administrador : admin){
     	if(administrador.usuarioAdmin == usuarioCliente && administrador.passwordAdmin == password){
-    		cout << "\t\t\t¡Bienvenido Administrador de PASEO FAMILIAR!" << "\n Comencemos con la Administración de PASEO FAMILIAR" << endl;
     		return true;
 		}
 	}
@@ -97,70 +57,87 @@ bool inicioSecionAdmin(){
 	return false;
 }
 
-//Funcion para inicio de sección
-bool inicioSecion (){
+//Funcion para registrar nuevos clientes
+void registroCliente(){
 	setlocale(LC_ALL, "");
-	string usuarioCliente, password;
-	cout<<"¡Bienvenido a PASEO FAMILIAR!"<<endl<<"Ingrese su nombre de Usuario"<<endl;
-	cin>>usuarioCliente;
-	cout<<"Ingrese su contraseña"<<endl;
-	cin>>password;
+	Cliente nuevoCliente;
+	cout << "\t\t\t\t\tREGISTRO DE NUEVO CLIENTE"<<endl;
+	cout << "\t\t\t\tComencemos con el Registro del Cliente\n"<<endl;
+	cout << "Ingrese un nombre:"<<endl;
+	cin >> nuevoCliente.nombre;
 	
-	for(const Cliente & cliente:clientes){//Creamos un ciclo, para traer los datos del vector
-		if (cliente.usuario == usuarioCliente && cliente.password == password) {//Comparamos si los datos del vector son iguales a los ingresados
-			cout<<"Bienvenido, "<< usuarioCliente<<"!! Disfruta tu experiencia."<<endl;
-			return true;//Retornamos verdadero si los datos son correctos
-		}
-	}
-		
-	cout<<"Lo sentimos, tu usuario o contraseña son incorrectos."<<endl;
-	return false;//Retornamos falso si los datos ingresados son incorrectos
+	cout<<"\nIngrese un apellido:"<<endl;
+	cin>>nuevoCliente.apellido;
+	
+	cout<<"\nIngrese un número de DPI:"<<endl;
+	cin>>nuevoCliente.dpi;
+	
+	cout<<"\nIngrese un número de Telefono:"<<endl;
+	cin>>nuevoCliente.telefono;
+	
+	cout<<"\nIngrese un número de NIT:"<<endl;
+	cin>>nuevoCliente.nit;
+	
+	cout<<"\nIngrese un correo electronico:"<<endl;
+	cin>>nuevoCliente.correo;
+	
+	cout<<"\nIngrese el Departamento donde Reside:"<<endl;
+	cin>>nuevoCliente.departamento;
+	
+	clientes.push_back(nuevoCliente); // Añadimos el nuevo cliente al vector
+	
+	cout<<"\nEl Registro del Cliente " <<nuevoCliente.nombre<<" "<<nuevoCliente.apellido<< ", se completo correctamente su registro.\n\n"<<endl;
 }
 
 // Función para actualizar los datos de un cliente
 void actualizarCliente(vector<Cliente>& clientes) {
 	setlocale(LC_ALL, "");
     string nit;
-    
+    cout << "\t\t\tACTUALIZACION DE DATOS DE CLIENTE \n"<< endl;
     cout << "Ingrese el NIT del cliente a actualizar: ";
     cin >> nit;
 
     for (Cliente& cliente : clientes) {
         if (cliente.nit == nit) {
         	int op;
-            cout << "Ingrese la opcion a cambiar: \n 1.Nombre \n 2.DPI \n 3.Teléfono \n 4.Correo \n 5.Departamento \n 6.Regresar"<<endl;
+            cout << "\n\nIngrese la opcion a cambiar: \n\n 1.Nombre \n\n 2.DPI \n\n 3.Teléfono \n\n 4.Correo \n\n 5.Departamento \n\n 6.Regresar\n"<<endl;
             cin >> op;
 			switch(op){
 				case 1:
-		            cout << "Ingrese el nuevo nombre del cliente: " << endl;
+		            cout << "\nIngrese el nuevo nombre del cliente: " << endl;
             		cin >> cliente.nombre;
+            		cout << "\nSe actualizo correctamente el nuevo nombre del cliente." << endl;
             	break;
             	
             	case 2:
-            		cout << "Ingrese el nuevo número de DPI: " << endl;
+            		cout << "\nIngrese el nuevo número de DPI: " << endl;
             		cin >> cliente.dpi;
+            		cout << "\nSe actualizo correctamente el nuevo número de DPI del cliente." << endl;
             	break;
             	
             	case 3:
-            		cout << "Ingrese el nuevo número de Teléfono: " << endl;
+            		cout << "\nIngrese el nuevo número de Teléfono: " << endl;
             		cin >> cliente.telefono;
+            		cout << "\nSe actualizo correctamente el nuevo número de Teléfono del cliente." << endl;
             	break;
             	
             	case 4:
-            		cout << "Ingrese el nuevo Correo: " << endl;
+            		cout << "\nIngrese el nuevo Correo: " << endl;
             		cin >> cliente.correo;
+            		cout << "\nSe actualizo correctamente el nuevo Correo del cliente." << endl;
             	break;
             	
             	case 5:
-            		cout << "Ingrese el nuevo Departamento: " << endl;
+            		cout << "\nIngrese el nuevo Departamento:" << endl;
             		cin >> cliente.departamento;
+            		cout << "\nSe actualizo correctamente el nuevo Departamento de Re del cliente.\n\n" << endl;
             	break;
             	
             	case 6: 
             		return;
             	
             	default:
-            		cout << "Selección una opcción correcta" << endl;
+            		cout << "Selección una opcción correcta\n\n" << endl;
             	
 			}
             
@@ -174,33 +151,35 @@ void actualizarCliente(vector<Cliente>& clientes) {
 // Función para eliminar un cliente
 void eliminarCliente(vector<Cliente>& clientes) {
     string nit;
-    cout << "Ingrese el NIT del cliente a eliminar: ";
+    cout << "\t\t\t\t\tELIMINAR CLIENTE"<< endl;
+    cout << "Ingrese el NIT del cliente a eliminar: "<<endl;
     cin >> nit;
 
     for (auto it = clientes.begin(); it != clientes.end(); ++it) {
         if (it->nit == nit) {
             clientes.erase(it);
-            cout << "Cliente eliminado exitosamente.\n";
+            cout << "\nCliente eliminado exitosamente.\n";
             return;
         }
     }
 
-    cout << "No se encontró un cliente con el NIT proporcionado.\n";
+    cout << "\nNo se encontró un cliente con el NIT proporcionado.\n";
 }
 // Función para consultar los datos de un cliente
 void consultarCliente(const vector<Cliente>& clientes) {
     string nit;
-    cout << "Ingrese el NIT del cliente a consultar: ";
+    cout << "\t\t\tCONSULTA DE DATOS DE CLIENTE\n" << endl;
+    cout << "Ingrese el NIT del cliente a consultar: \n";
     cin >> nit;
 
     for (const Cliente & cliente : clientes) {
         if (cliente.nit == nit) {
-            cout << "Nombre: " << cliente.nombre << "\n";
-            cout << "Apellido: " << cliente.apellido << "\n";
-            cout << "DPI: " << cliente.dpi << "\n";
-            cout << "Telefono: " << cliente.telefono << "\n";
-            cout << "Correo: " << cliente.correo << "\n";
-            cout << "Departamento: " << cliente.departamento << "\n";
+            cout << "\nNombre: " << cliente.nombre << "\n\n";
+            cout << "Apellido: " << cliente.apellido << "\n\n";
+            cout << "DPI: " << cliente.dpi << "\n\n";
+            cout << "Telefono: " << cliente.telefono << "\n\n";
+            cout << "Correo: " << cliente.correo << "\n\n";
+            cout << "Departamento: " << cliente.departamento << "\n\n";
             return;
         }
     }
@@ -213,9 +192,9 @@ int clie(){//Menu de la opcion de clientes
 	int opcion;
 	
 	while (true){
-	    cout << "\t\t\t\tBIENVENIDO A PASEO FAMILIAR" << endl;
-	    cout << "\t\t\tEl Centro Recreativo mas grande de Guatemala" << endl;
-		cout << "\n\n 1. Registrar usuario \n 2. Actualización de datos de Cliente \n 3. Eliminar Cliente \n 4. Consultar Datos de Cliente \n 5. Salir" << endl;
+	    cout << "\t\t\t\t\t\tCLIENTES" << endl;
+	    cout << "\t\t\tPASEO FAMILIAR el Centro Recreativo mas Grande de Guatemala" << endl;
+		cout << "\n\n 1. Registrar Cliente \n\n 2. Actualización de datos de Cliente \n\n 3. Eliminar Cliente \n\n 4. Consultar Datos de Cliente \n\n 5. Salir" << endl;
 	    cout << "\n Seleccione una opción: ";
 		cin>>opcion;
 
@@ -312,8 +291,8 @@ int main2(){
 	setlocale(LC_ALL, "");
 	int opcion;
 	while (true){
-		cout << "\t\t\t\tBIENVENIDO A PASEO FAMILIAR" << endl;
-	    cout << "\t\t\tEl Centro Recreativo mas grande de Guatemala" << endl;
+		cout << "\t\t\t\t BIENVENIDO ADMINISTRADOR DE PASEO FAMILIAR" << endl;
+	    cout << "\t\t\t\tEl Centro Recreativo Mas Grande de Guatemala" << endl;
 		cout << "\n\n1. Clientes" << endl;
 	    cout << "\n2. Actividades" << endl;
 	    cout << "\n3. Salir" << endl;
