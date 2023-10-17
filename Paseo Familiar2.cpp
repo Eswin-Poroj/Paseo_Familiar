@@ -8,6 +8,12 @@ using namespace std;
 //------------------------------------------------------------------------------------------------------
 //Aquí empieza la opcion de Clientes
 
+//Estructura de Inicio de Sección de Administrador
+struct Administrador{
+	string usuarioAdmin;
+	string passwordAdmin;
+};
+
 //Estructura para almacenar los datos de los clientes
 struct Cliente{
 	string  usuario;
@@ -26,7 +32,7 @@ vector<Cliente> clientes;
 
 // Menú de actividades
 struct Actividad {
-    std::string nombre;
+    string nombre;
     double precio;
 };
 
@@ -66,6 +72,29 @@ void registroCliente(){
 	clientes.push_back(nuevoCliente); // Añadimos el nuevo cliente al vector
 	
 	cout<<"Felicidades " <<nuevoCliente.nombre<<" "<<nuevoCliente.apellido<< ", completamos su registro."<<endl<<"¡¡Muchas Gracias!!"<<endl;
+}
+
+bool inicioSecionAdmin(){
+	setlocale(LC_ALL, "");
+	string usuarioCliente, password;
+	vector<Administrador> admin = {
+	    {"ADMINISTRADOR", "4899"}
+    };
+
+	cout<<"¡Bienvenido a PASEO FAMILIAR!"<<endl<<"Ingrese su nombre de Usuario"<<endl;
+	cin>>usuarioCliente;
+	cout<<"Ingrese su contraseña"<<endl;
+	cin>>password;
+    
+    for(const Administrador & administrador : admin){
+    	if(administrador.usuarioAdmin == usuarioCliente && administrador.passwordAdmin == password){
+    		cout << "\t\t\t¡Bienvenido Administrador de PASEO FAMILIAR!" << "\n Comencemos con la Administración de PASEO FAMILIAR" << endl;
+    		return true;
+		}
+	}
+	
+	cout << "\n\t Lo sentimos, tu usuario o contraseña son incorrectos" << endl;
+	return false;
 }
 
 //Funcion para inicio de sección
@@ -322,17 +351,13 @@ int main(){
 	while (true) {
         cout << "\t\t\t\tBIENVENIDO A PASEO FAMILIAR" << endl;
 	    cout << "\t\t\tEl Centro Recreativo mas grande de Guatemala" << endl;
-		cout << "1. Registrar usuario \n" << endl;
-        cout << "2. Iniciar sesión \n" << endl;
-        cout << "3. Salir\n" << endl;
+        cout << "1. Iniciar sesión \n" << endl;
+        cout << "2. Salir\n" << endl;
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
         switch (opcion) {
-            case 1:
-                registroCliente();
-                break;
-            case 2: {
+            case 1: {
 	                if (inicioSecion()){
 	                		main2();
 						}
@@ -340,7 +365,7 @@ int main(){
 						cout << "Intenta Registrarte Primero"<<endl;
                 break;
             }
-            case 3:
+            case 2:
                 cout << "Saliendo del programa." << endl;
                 return 0;
                 
