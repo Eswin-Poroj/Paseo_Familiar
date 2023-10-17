@@ -358,11 +358,11 @@ int main(){
 
         switch (opcion) {
             case 1: {
-	                if (inicioSecion()){
+	                if (inicioSecionAdmin()){
 	                		main2();
 						}
 					else
-						cout << "Intenta Registrarte Primero"<<endl;
+						cout << "\n\t\tO simplemente no eres un ADMINISTRADOR \n\n"<<endl;
                 break;
             }
             case 2:
