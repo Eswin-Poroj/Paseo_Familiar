@@ -40,6 +40,7 @@ struct Actividad {
 bool inicioSecionAdmin(){
 	setlocale(LC_ALL, "");
 	string usuarioCliente, password;
+	
 	vector<Administrador> admin = {
 	    {"ADMINISTRADOR", "4899"}
     };
@@ -60,33 +61,61 @@ bool inicioSecionAdmin(){
 }
 
 void guardarDatos(const vector<Cliente>&nuevoCliente){
+	setlocale(LC_ALL, "");
 	//Creamos el archivo .txt
 	ofstream archivo("clientes.txt",ios::app);
-	
+		
 	if(archivo.is_open()){
-		
-		for(const auto &cliente:nuevoCliente){
-			archivo << "Nombre: " << cliente.nombre << endl;
-			archivo << "Apellido: " << cliente.apellido << endl;
-			archivo << "No. de DPI: " << cliente.dpi << endl;
-			archivo << "No. de Teléfono: " << cliente.telefono << endl;
-			archivo << "No. de NIT: " << cliente.nit << endl;
-			archivo << "Correo: " << cliente.correo << endl;
-			archivo << "Departamento: " << cliente.departamento << endl;
+        for(const auto &cliente:nuevoCliente){
+            archivo << cliente.nombre << ",";
+            archivo << cliente.apellido << ",";
+            archivo << cliente.dpi << ",";
+            archivo << cliente.telefono << ",";
+            archivo << cliente.nit << ",";
+            archivo << cliente.correo << ",";
+            archivo << cliente.departamento << "\n";		
+			
+			archivo.close();	
 		}
-		
-		archivo.close();	
 	}
+}
+
+//Funcion para leer datos de un archivo txt
+bool VerificarNIT(const string& nombreArchivo, const string& num_nit){
+	setlocale(LC_ALL, "");
+	ifstream archivol(nombreArchivo);
 	
-	
+	if(archivol.is_open()){
+		string linea;
+        while(getline(archivol, linea)){
+            istringstream iss(linea);            
+			Cliente nuevoCliente;            
+			getline(iss, nuevoCliente.nombre, ',');
+            getline(iss, nuevoCliente.apellido, ',');
+            getline(iss, nuevoCliente.dpi, ',');
+            getline(iss, nuevoCliente.telefono, ',');
+            getline(iss, nuevoCliente.nit, ',');
+            getline(iss, nuevoCliente.correo, ',');
+            getline(iss, nuevoCliente.departamento);
+            
+			if(nuevoCliente.nit == num_nit){
+                cout<<"Bienvenido " << nuevoCliente.nombre<< "!!  Disfruta tu experiencia."<<endl;
+                return true;
+            }
+        }
+        archivol.close();
+	}
+	return false;
 }
 
 //Funcion para registrar nuevos clientes
 void registroCliente(){
 	setlocale(LC_ALL, "");
 	Cliente nuevoCliente;
+
 	cout << "\t\t\t\t\tREGISTRO DE NUEVO CLIENTE"<<endl;
 	cout << "\t\t\t\tComencemos con el Registro del Cliente\n"<<endl;
+
 	cout << "Ingrese un nombre:"<<endl;
 	cin >> nuevoCliente.nombre;
 	
@@ -161,14 +190,11 @@ void actualizarCliente(vector<Cliente>& clientes) {
             		return;
             	
             	default:
-            		cout << "Selección una opcción correcta\n\n" << endl;
-            	
-			}
-            
+            		cout << "Selección una opcción correcta\n\n" << endl;            	
+			}            
             return;
         }
     }
-
     cout << "No se encontró un cliente con el NIT proporcionado.\n";
 }
 
@@ -253,21 +279,6 @@ int clie(){//Menu de la opcion de clientes
 //-------------------------------------------------------------------------------------------------
 //Aquí comienza la opcion de actividades
 
-//Funcion para verificar el Nit si existe
-bool verificarNit(){
-	string nit;
-    cout << "Ingrese su número de NIT: ";
-    cin >> nit;
-
-	for(const Cliente & cliente:clientes){//Creamos un ciclo, para traer los datos del vector
-	if (cliente.nit == nit) {//Comparamos si los datos del vector son iguales a los ingresados
-		cout<<"Bienvenido!! Disfruta tu experiencia."<<endl;
-		return true;//Retornamos verdadero si los datos son correctos
-	}
-	}
-	return false;//Retornamos falso si los datos ingresados son incorrectos
-}
-
 //Funcion de las actividades
 int actividad() {
     vector<Actividad> actividades = {
@@ -329,14 +340,19 @@ int main2(){
 				clie();
 				break;
 			
-			case 2:
-					if (verificarNit()){
-							actividad();	
-						}
-					else 
-						cout << "No tenemos registrado este nit, favor registrarse antes"<<endl;
+			case 2:{
+				string num_nit;
+				cout << "Ingrese su númerAo de NIT: ";
+    			cin >> num_nit;
+    				
+				if (VerificarNIT("clientes.txt",num_nit)){
+					actividad();	
+					}
+				else 
+					cout << "No tenemos registrado este nit, favor registrarse antes"<<endl;
 				break;
-			
+			}
+								
 			case 3:
 				cout << "Saliendo del programa." << endl;
 	        	return 0;
