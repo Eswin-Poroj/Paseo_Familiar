@@ -2,6 +2,8 @@
 #include<string>
 #include<vector>
 #include <locale.h>
+#include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -55,6 +57,28 @@ bool inicioSecionAdmin(){
 	
 	cout << "\n\t Lo sentimos, tu usuario o contraseña son incorrectos" << endl;
 	return false;
+}
+
+void guardarDatos(const vector<Cliente>&nuevoCliente){
+	//Creamos el archivo .txt
+	ofstream archivo("clientes.txt",ios::app);
+	
+	if(archivo.is_open()){
+		
+		for(const auto &cliente:nuevoCliente){
+			archivo << "Nombre: " << cliente.nombre << endl;
+			archivo << "Apellido: " << cliente.apellido << endl;
+			archivo << "No. de DPI: " << cliente.dpi << endl;
+			archivo << "No. de Teléfono: " << cliente.telefono << endl;
+			archivo << "No. de NIT: " << cliente.nit << endl;
+			archivo << "Correo: " << cliente.correo << endl;
+			archivo << "Departamento: " << cliente.departamento << endl;
+		}
+		
+		archivo.close();	
+	}
+	
+	
 }
 
 //Funcion para registrar nuevos clientes
@@ -201,6 +225,7 @@ int clie(){//Menu de la opcion de clientes
 		switch (opcion) {
 			case 1:
 				registroCliente();
+				guardarDatos(clientes);
 				break;
 				
 			case 2:
