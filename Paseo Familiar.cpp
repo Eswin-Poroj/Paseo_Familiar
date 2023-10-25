@@ -39,6 +39,8 @@ struct Actividad {
     double precio;
 };
 
+
+
 //Inicio de Sección de Administrador
 bool inicioSecionAdmin(){
 	setlocale(LC_ALL, "");
