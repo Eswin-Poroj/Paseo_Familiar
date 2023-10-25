@@ -1,9 +1,12 @@
-#include<iostream>
-#include<string>
-#include<vector>
-#include <locale.h>
-#include <sstream>
+#include <iostream>
+#include <string>//Librería para agregar variables tipo string
+#include <vector>//Librería para agregar vectores
+#include <locale.h>//Librería para que reconocer caracteres especiales
+#include <sstream>//Librerías para guardar datos a un archivo .txt
 #include <fstream>
+#include <conio.h>//Librerías para ubicar los textos en un plano cartesiano
+#include <windows.h>
+
 
 using namespace std;
 
@@ -44,15 +47,15 @@ bool inicioSecionAdmin(){
 	vector<Administrador> admin = {
 	    {"ADMINISTRADOR", "4899"}
     };
-
+	
 	cout<<"\t\t\t\t¡Bienvenido a PASEO FAMILIAR!"<<endl<<"\nIngrese su Usuario"<<endl;
 	cin>>usuarioCliente;
 	cout<<"\nIngrese su contraseña"<<endl;
 	cin>>password;
     
     for(const Administrador & administrador : admin){
-    	if(administrador.usuarioAdmin == usuarioCliente && administrador.passwordAdmin == password){
-    		return true;
+		if(administrador.usuarioAdmin == usuarioCliente && administrador.passwordAdmin == password){
+			return true;
 		}
 	}
 	
@@ -60,11 +63,11 @@ bool inicioSecionAdmin(){
 	return false;
 }
 
+//Función para guardar los datos en un archivo .txt
 void guardarDatos(const vector<Cliente>&nuevoCliente){
 	setlocale(LC_ALL, "");
-	//Creamos el archivo .txt
-	ofstream archivo("clientes.txt",ios::app);
-		
+	ofstream archivo("clientes.txt",ios::app);//"ios::app" verifica si ya existe el archivo y sí si, ya no lo vuelve a crear
+	
 	if(archivo.is_open()){
         for(const auto &cliente:nuevoCliente){
             archivo << cliente.nombre << ",";
@@ -80,15 +83,18 @@ void guardarDatos(const vector<Cliente>&nuevoCliente){
 	}
 }
 
-//Funcion para leer datos de un archivo txt
-bool VerificarNIT(const string& nombreArchivo, const string& num_nit){
+//Función para verificar el Nit del cliente
+bool verificarNIT(const string& nombreArchivo, const string& num_nit){
 	setlocale(LC_ALL, "");
 	ifstream archivol(nombreArchivo);
 	
 	if(archivol.is_open()){
 		string linea;
+
         while(getline(archivol, linea)){
-            istringstream iss(linea);            
+
+			istringstream iss(linea);            
+
 			Cliente nuevoCliente;            
 			getline(iss, nuevoCliente.nombre, ',');
             getline(iss, nuevoCliente.apellido, ',');
@@ -97,10 +103,10 @@ bool VerificarNIT(const string& nombreArchivo, const string& num_nit){
             getline(iss, nuevoCliente.nit, ',');
             getline(iss, nuevoCliente.correo, ',');
             getline(iss, nuevoCliente.departamento);
-            
+
 			if(nuevoCliente.nit == num_nit){
                 cout<<"Bienvenido " << nuevoCliente.nombre<< "!!  Disfruta tu experiencia."<<endl;
-                return true;
+				return true;
             }
         }
         archivol.close();
@@ -215,6 +221,7 @@ void eliminarCliente(vector<Cliente>& clientes) {
 
     cout << "\nNo se encontró un cliente con el NIT proporcionado.\n";
 }
+
 // Función para consultar los datos de un cliente
 void consultarCliente(const vector<Cliente>& clientes) {
     string nit;
@@ -237,7 +244,8 @@ void consultarCliente(const vector<Cliente>& clientes) {
     cout << "No se encontró un cliente con el NIT proporcionado.\n";
 }
 
-int clie(){//Menu de la opcion de clientes
+//Menú de la pestaña Clientes
+int clie(){
 	setlocale(LC_ALL, "");
 	int opcion;
 	
@@ -322,7 +330,7 @@ int actividad() {
 }
 
 //--------------------------------------------------------------------------------------------------
-//Menú Secundario
+//MENÚ SECUNDARIO
 int main2(){
 	setlocale(LC_ALL, "");
 	int opcion;
@@ -345,7 +353,7 @@ int main2(){
 				cout << "Ingrese su númerAo de NIT: ";
     			cin >> num_nit;
     				
-				if (VerificarNIT("clientes.txt",num_nit)){
+				if (verificarNIT("clientes.txt",num_nit)){
 					actividad();	
 					}
 				else 
@@ -364,7 +372,7 @@ int main2(){
 }
 
 //--------------------------------------------------------------------------------------------------
-//Menú Principal
+//MENÚ PRINCIPAL
 int main(){
 	setlocale(LC_ALL, "");
 	int opcion;
