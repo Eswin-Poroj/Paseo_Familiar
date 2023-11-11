@@ -47,4 +47,4 @@ Ahora bien! Las librerías que utilice fueron varias, las cuales fueron:
 ------------
 En la interfaz gráfica para consola use una función a la qué llame `gotoxy`, la cual me ayudo para ubicar los textos en la consola.
 
-Espero les sea de su agrado!! Posdata son nuevo programando jeje
+Espero les sea de su agrado!! Posdata soy nuevo programando, acepto criticas constructivas y recomendaciónes!
